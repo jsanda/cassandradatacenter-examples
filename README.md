@@ -20,3 +20,4 @@ $ helm install cass-operator k8ssandra/cass-operator
 * [Custom Pod Labels](./pod-labels)
 * [Environment Variables](./env-var)
 * [Init Container](./init-container)
+* [Remote JMX](./remote-jmx)

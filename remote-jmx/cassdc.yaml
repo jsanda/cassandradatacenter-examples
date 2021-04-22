@@ -3,7 +3,7 @@ kind: CassandraDatacenter
 metadata:
   name: dc1
 spec:
-  clusterName: init-container
+  clusterName: remote-jmx
   size: 1
   storageConfig:
     cassandraDataVolumeClaimSpec:
@@ -19,11 +19,25 @@ spec:
   dockerImageRunsAsCassandra: true
   podTemplateSpec:
     spec:
-      containers: []
+      containers:
+      - name: cassandra
+        env:
+        - name: LOCAL_JMX
+          value: "no"
       initContainers:
-      - name: hello
+      - name: server-config-init
+      - name: jmx-credentials
         image: busybox
+        env:
+        - name: JMX_USERNAME
+          value: cassandra
+        - name: JMX_PASSWORD
+          value: cassandra
         args:
         - /bin/sh
         - -c
-        - echo Hello World
+        - echo "$JMX_USERNAME $JMX_PASSWORD" > /config/jmxremote.password
+        volumeMounts:
+        - name: server-config
+          mountPath: /config
+
