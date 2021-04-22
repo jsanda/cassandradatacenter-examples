@@ -16,7 +16,6 @@ spec:
   serverImage: k8ssandra/cass-management-api:3.11.10-v0.1.24
   serverType: cassandra
   serverVersion: 3.11.10
-  disableSystemLoggerSidecar: true
   dockerImageRunsAsCassandra: true
   config:
     cassandra-yaml:

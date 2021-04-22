@@ -1,0 +1,30 @@
+apiVersion: cassandra.datastax.com/v1beta1
+kind: CassandraDatacenter
+metadata:
+  name: dc1
+spec:
+  clusterName: cluster-topology
+  size: 3
+  storageConfig:
+    cassandraDataVolumeClaimSpec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: standard
+  serverImage: k8ssandra/cass-management-api:3.11.10-v0.1.24
+  serverType: cassandra
+  serverVersion: 3.11.10
+  dockerImageRunsAsCassandra: true
+  racks:
+  - name: rack1
+    nodeAffinityLabels:
+      topology.kubernetes.io/zone: us-east1-a
+  - name: rack2
+    nodeAffinityLabels:
+      topology.kubernetes.io/zone: us-east1-b
+  - name: rack3
+    nodeAffinityLabels:
+      topology.kubernetes.io/zone: us-east1-c
+
