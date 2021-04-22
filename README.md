@@ -18,3 +18,4 @@ $ helm install cass-operator k8ssandra/cass-operator
 * [Cluster Topology](./cluster-topology)
 * [Cassandra Pod Resources](./cassandra-pod-resources)
 * [Custom Pod Labels](./pod-labels)
+* [Environment Variables](./env-var)

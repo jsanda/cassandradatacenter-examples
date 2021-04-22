@@ -1,0 +1,27 @@
+apiVersion: cassandra.datastax.com/v1beta1
+kind: CassandraDatacenter
+metadata:
+  name: dc1
+spec:
+  clusterName: env-var
+  size: 1
+  storageConfig:
+    cassandraDataVolumeClaimSpec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: standard
+  serverImage: k8ssandra/cass-management-api:3.11.10-v0.1.24
+  serverType: cassandra
+  serverVersion: 3.11.10
+  dockerImageRunsAsCassandra: true
+  podTemplateSpec:
+    spec:
+      containers:
+      - name: cassandra
+        env:
+        - name: HELLO
+          value: WORLD
+
