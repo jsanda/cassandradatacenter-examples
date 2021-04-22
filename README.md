@@ -17,3 +17,4 @@ $ helm install cass-operator k8ssandra/cass-operator
 * [Cassandra and JVM Configuration](./cassandra-jvm)
 * [Cluster Topology](./cluster-topology)
 * [Cassandra Pod Resources](./cassandra-pod-resources)
+* [Custom Pod Labels](./pod-labels)
