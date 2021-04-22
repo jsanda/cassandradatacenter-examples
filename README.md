@@ -14,5 +14,6 @@ $ helm repo update
 $ helm install cass-operator k8ssandra/cass-operator
 ```
 # Examples
-* [Cassandra and JVM Configuration](./cassandra-jvm/README.md)
-* [Cluster Topology](./cluster-topology/README.md)
+* [Cassandra and JVM Configuration](./cassandra-jvm)
+* [Cluster Topology](./cluster-topology)
+* [Cassandra Pod Resources](./cassandra-pod-resources)
