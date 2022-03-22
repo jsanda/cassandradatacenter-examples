@@ -3,7 +3,7 @@ kind: CassandraDatacenter
 metadata:
   name: dc1
 spec:
-  clusterName: env-var
+  clusterName: pod-labels
   size: 1
   storageConfig:
     cassandraDataVolumeClaimSpec:
@@ -13,15 +13,13 @@ spec:
         requests:
           storage: 5Gi
       storageClassName: standard
-  serverImage: k8ssandra/cass-management-api:3.11.10-v0.1.24
   serverType: cassandra
-  serverVersion: 3.11.10
-  dockerImageRunsAsCassandra: true
+  serverVersion: 3.11.12
   podTemplateSpec:
+    metadata:
+      labels:
+        env: dev
+        app.kubernetes.io/part-of: examples
+        app.kubernetes.io/version: "0.47.3"
     spec:
-      containers:
-      - name: cassandra
-        env:
-        - name: HELLO
-          value: WORLD
-
+      containers: []

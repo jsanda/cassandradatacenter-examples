@@ -13,9 +13,8 @@ spec:
         requests:
           storage: 5Gi
       storageClassName: standard
-  serverImage: k8ssandra/cass-management-api:3.11.10-v0.1.24
   serverType: cassandra
-  serverVersion: 3.11.10
+  serverVersion: 4.0.3
   dockerImageRunsAsCassandra: true
   podTemplateSpec:
     spec:

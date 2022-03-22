@@ -1,0 +1,47 @@
+apiVersion: cassandra.datastax.com/v1beta1
+kind: CassandraDatacenter
+metadata:
+  name: dc1
+spec:
+  clusterName: remote-jmx
+  size: 1
+  storageConfig:
+    cassandraDataVolumeClaimSpec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: standard
+  serverType: cassandra
+  serverVersion: 3.11.12
+  podTemplateSpec:
+    spec:
+      containers:
+      - name: cassandra
+        env:
+        - name: LOCAL_JMX
+          value: "no"
+      initContainers:
+      - name: server-config-init
+      - name: jmx-credentials
+        image: busybox
+        env:
+        - name: JMX_USERNAME
+          valueFrom:
+	    secretKeyRef: 
+	      name: jmx-credentials
+	      key: username	     
+        - name: JMX_PASSWORD
+          valueFrom:
+	    secretKeyRef: 
+	      name: jmx-credentials
+	      key: password
+        args:
+        - /bin/sh
+        - -c
+        - echo "$JMX_USERNAME $JMX_PASSWORD" > /config/jmxremote.password
+        volumeMounts:
+        - name: server-config
+          mountPath: /config
+

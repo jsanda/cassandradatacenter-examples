@@ -1,0 +1,32 @@
+apiVersion: cassandra.datastax.com/v1beta1
+kind: CassandraDatacenter
+metadata:
+  name: dc1
+spec:
+  clusterName: cassandra-jvm-config
+  size: 1
+  storageConfig:
+    cassandraDataVolumeClaimSpec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: standard
+  serverType: cassandra
+  serverVersion: 3.11.12
+  config:
+    cassandra-yaml:
+      authenticator: PasswordAuthenticator
+      authorizer: CassandraAuthorizer
+      compaction_throughput_mb_per_sec: 128
+      tombstone_warn_threshold: 5000
+      tombstone_failure_threshold: 200000
+      unlogged_batch_across_partitions_warn_threshold: 25   
+    jvm-options:
+      initial_heap_size: "512m"
+      max_heap_size: "512m"
+      heap_size_young_generation: "256m"
+      garbage_collector: CMS
+      max_tenuring_threshold: 5
+

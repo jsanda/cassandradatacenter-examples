@@ -1,0 +1,27 @@
+apiVersion: cassandra.datastax.com/v1beta1
+kind: CassandraDatacenter
+metadata:
+  name: dc1
+spec:
+  clusterName: init-container
+  size: 1
+  storageConfig:
+    cassandraDataVolumeClaimSpec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: standard
+  serverType: cassandra
+  serverVersion: 4.0.3
+  podTemplateSpec:
+    spec:
+      containers: []
+      initContainers:
+      - name: hello
+        image: busybox
+        args:
+        - /bin/sh
+        - -c
+        - echo Hello World

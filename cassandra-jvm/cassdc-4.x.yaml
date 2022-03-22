@@ -13,10 +13,8 @@ spec:
         requests:
           storage: 5Gi
       storageClassName: standard
-  serverImage: k8ssandra/cass-management-api:3.11.10-v0.1.24
   serverType: cassandra
-  serverVersion: 3.11.10
-  dockerImageRunsAsCassandra: true
+  serverVersion: 4.0.3
   config:
     cassandra-yaml:
       authenticator: PasswordAuthenticator
@@ -25,10 +23,10 @@ spec:
       tombstone_warn_threshold: 5000
       tombstone_failure_threshold: 200000
       unlogged_batch_across_partitions_warn_threshold: 25   
-    jvm-options:
+    jvm-server-options:
       initial_heap_size: "512m"
       max_heap_size: "512m"
-      heap_size_young_generation: "256m"
-      garbage_collector: CMS
-      max_tenuring_threshold: 5
+    jvm11-server-options:
+      garbage_collector: G1GC
+      max_gc_pause_millis: 550
 

@@ -1,0 +1,36 @@
+apiVersion: cassandra.datastax.com/v1beta1
+kind: CassandraDatacenter
+metadata:
+  name: dc1
+spec:
+  clusterName: cassandra-pod-resources
+  size: 1
+  storageConfig:
+    cassandraDataVolumeClaimSpec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: standard
+  serverType: cassandra
+  serverVersion: 3.11.12
+  spec:
+  resources:
+    requests:
+      cpu: 2
+      memory: 2Gi
+  configBuilderResources:
+    requests:
+      cpu: 1
+      memory: 125Mi
+    limits:
+      cpu: 1
+      memory: 250Mi
+  systemLoggerResources:
+    requests:
+      cpu: 100m
+      memory: 20Mi
+    limits:
+      cpu: 100m
+      memory: 30Mi
